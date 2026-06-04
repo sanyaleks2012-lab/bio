@@ -1,0 +1,256 @@
+/* === PANORAMA UI BASE === */
+@font-face {
+  font-family: 'CascadiaMono';
+  src: url('cascadiamononerdfontslightitalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  /* Палитра в стиле интерфейса CS:GO */
+  --bg-dark: #080d14;
+  --panorama-bg: rgba(14, 22, 33, 0.75);
+  --panorama-border: rgba(100, 150, 180, 0.25);
+  --panorama-glow: rgba(72, 163, 228, 0.15);
+  --text-main: #f0f3f5;
+  --text-dim: #8b9aa7;
+  --accent-blue: #48a3e4;
+  --accent-orange: #de9b35; /* Цвет коктейля Молотова / CS */
+  --blur-val: 16px;
+  --radius: 4px; /* В Panorama UI углы практически острые */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: radial-gradient(circle at center, #111a24 0%, var(--bg-dark) 100%);
+  color: var(--text-main);
+  font-family: 'CascadiaMono', monospace, system-ui, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* === ФОНОВЫЙ ГРАДИЕНТ === */
+.bg-glow {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 100%, rgba(72, 163, 228, 0.08) 0%, transparent 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+#bg-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* === PANORAMA CARD PANEL === */
+.panorama-panel {
+  position: relative;
+  z-index: 1;
+  width: 580px;
+  max-width: 92vw;
+  background: var(--panorama-bg);
+  border: 1px solid var(--panorama-border);
+  border-left: 4px solid var(--accent-blue); /* Характерная черта сайдбаров CS:GO */
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  backdrop-filter: blur(var(--blur-val));
+  -webkit-backdrop-filter: blur(var(--blur-val));
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 0%; /* Квадратная или со срезом аватарка ближе к стилю игры */
+  border: 1px solid var(--panorama-border);
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  object-fit: cover;
+}
+
+.nickname {
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--accent-orange);
+  margin-top: 0.2rem;
+}
+
+.panorama-divider {
+  height: 1px;
+  background: linear-gradient(90deg, var(--panorama-border) 0%, transparent 100%);
+  margin-bottom: 1.5rem;
+}
+
+/* === INFO BLOCK === */
+.info-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.info-item {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.02);
+  padding: 0.5rem 0.8rem;
+  border-radius: 2px;
+  border-left: 2px solid rgba(139, 154, 167, 0.3);
+}
+
+.info-label {
+  color: var(--text-dim);
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+/* === BUTTONS (PANORAMA STYLE) === */
+.nav-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-panorama {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.8rem;
+  background: rgba(44, 62, 80, 0.4);
+  border: 1px solid var(--panorama-border);
+  color: var(--text-main);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.btn-panorama:hover {
+  background: var(--accent-blue);
+  color: #000;
+  font-weight: bold;
+  box-shadow: 0 0 15px rgba(72, 163, 228, 0.4);
+}
+
+.btn-panorama:active {
+  transform: scale(0.99);
+}
+
+/* === SOCIAL CONTAINER === */
+.section-title {
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-bottom: 1rem;
+}
+
+.social-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid transparent;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+.social-link:not(.no-click):hover {
+  background: rgba(72, 163, 228, 0.05);
+  border-color: var(--panorama-border);
+}
+
+.social-icon-wrapper {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.social-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.social-text {
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.social-sub {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.no-click {
+  cursor: default;
+}
+
+/* === АДАПТИВ ПОД ТЕЛЕФОН === */
+@media (max-width: 768px) {
+  .panorama-panel {
+    width: 95vw;
+    padding: 1.5rem;
+  }
+  .card-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  .nickname {
+    font-size: 1.6rem;
+  }
+}
+
+/* === ЭКОНОМИЯ РЕСУРСОВ === */
+@media (prefers-reduced-motion: reduce) {
+  #bg-canvas { display: none; }
+}
